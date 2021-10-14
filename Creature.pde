@@ -43,20 +43,26 @@ public void collide() {
 public void eat(Food f) {
  double dist = PVector.sub(this.pos,f.pos).mag();
     if (dist <= this.SIZE / 2 + f.SIZE / 2) {
-       
+       hp ++;
      f.active = false;
     }
      
 }
-public void eat(Cow c) {
- if (this.pos.x == c.pos.x && this.pos.y == c.pos.y && this.pos.y == c.pos.y + c.SIZE){
-     c.active = false;
+public void eat(Cow k) {
+ if (this.pos.x == k.pos.x && this.pos.y == k.pos.y && this.pos.y == k.pos.y + k.SIZE){
+     k.active = false;
     }
 }
 
 
 
 public void attack(Creature c) {
-  
+   if(hp > 0){
+    --hp;
+    System.out.println("hp: " +hp);
+  }
+  else if(hp == 0){
+    c.active = false;
+  }
 }
 }

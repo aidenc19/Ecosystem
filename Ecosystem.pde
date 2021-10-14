@@ -15,17 +15,22 @@ public void setup() {
 public void draw() {
   background(220);
  for (int i = 0; i < creatures.length; i++) {
-    if (creatures[i] != null && creatures[i].active) {
+
    creatures[i].show();
    creatures[i].move();
    creatures[i].collide();
-    }
+   creatures[i].attack(creatures[i]);
+   for (int j = 0; j < food.length; j++){
+     creatures[i].eat(food[j]);
+   }
+    
  }
    for(int i = 0; i < food.length; i++){
      if (food[i].active == true){ 
+         food[i].show();
+         food[i].moreFood();
    creatures[i].eat(food[i]);
    }
-    food[i].show();
    }
     for(int i = 0; i < cow.length; i++){
    cow[i].show();
@@ -54,6 +59,9 @@ public void draw() {
    private void spawnFood() {
      for (int i = 0; i < food.length; i++) {
     food[i] = new Food((int)(Math.random()* 800),(int)(Math.random()* 800));
+  }
+  if(food.length <= 5){
+    spawnFood();
   }
   }
     private void spawnCow() {
