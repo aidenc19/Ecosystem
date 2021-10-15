@@ -2,6 +2,7 @@ public class Cow {
   public PVector pos, vel;
   public int speed = 1;
   public final int SIZE = 15;
+  public int health = 3;
   public final color COLOR = color(100,50,50);
   public boolean active = true;
   int x;
