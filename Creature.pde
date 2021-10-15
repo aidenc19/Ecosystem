@@ -32,10 +32,10 @@ public void collide() {
   if(pos.y <= 20){
     vel.y = -vel.y;
   }
-  if(pos.x <= 0){
-    vel.x ++;
+  if(pos.x <= 20){
+    vel.x = -vel.x;
   }
-  if(pos.x >= 800){
+  if(pos.x >= 780){
     vel.x = -vel.x;
   }
 }
@@ -43,26 +43,39 @@ public void collide() {
 public void eat(Food f) {
  double dist = PVector.sub(this.pos,f.pos).mag();
     if (dist <= this.SIZE / 2 + f.SIZE / 2) {
-       hp ++;
+       hp += 1;
      f.active = false;
     }
      
 }
 public void eat(Cow k) {
- if (this.pos.x == k.pos.x && this.pos.y == k.pos.y && this.pos.y == k.pos.y + k.SIZE){
-     k.active = false;
+  double dist = PVector.sub(this.pos,k.pos).mag();
+    if (dist <= this.SIZE / 2 + k.SIZE / 2) {
+       hp += 5;
+    k.health -= k.health;
+    if( k.health <= 0){
+     k.active = false; 
+    }
     }
 }
 
 
 
 public void attack(Creature c) {
-   if(hp > 0){
-    --hp;
+    
+   if(hp > 0){ //<>//
+    hp -= .2;
+   
+    
     System.out.println("hp: " +hp);
-  }
-  else if(hp == 0){
+   }
+   if(hp <= 0){
     c.active = false;
-  }
+   }
+}
+public void moreFood() {
+ if(hp <= 20){
+  spawnFood(); 
+ }
 }
 }

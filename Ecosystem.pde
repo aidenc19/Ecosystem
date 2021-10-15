@@ -1,7 +1,9 @@
 Creature[] creatures = new Creature[30];
 Food[] food = new Food[30];
-Cow[] cow = new Cow[10];
-Bush[] bush = new Bush[5];
+Cow[] cow = new Cow[15];
+
+
+
 
 
 public void setup() {
@@ -9,63 +11,74 @@ public void setup() {
   spawnCreatures();
   spawnFood();
   spawnCow();
-  spawnBush();
-}
+  
+  moreFood();
+
+  }
+
 
 public void draw() {
-  background(220);
+  background(0,210,50);
  for (int i = 0; i < creatures.length; i++) {
-
+   if(creatures[i].active == true){
+creatures[i].attack(creatures[i]);
    creatures[i].show();
    creatures[i].move();
    creatures[i].collide();
-   creatures[i].attack(creatures[i]);
    for (int j = 0; j < food.length; j++){
      creatures[i].eat(food[j]);
    }
-    
+   for (int p = 0; p < cow.length; p++){
+     creatures[i].eat(cow[p]);
+   }
+   }
  }
    for(int i = 0; i < food.length; i++){
      if (food[i].active == true){ 
          food[i].show();
-         food[i].moreFood();
+         
+
    creatures[i].eat(food[i]);
+   }
+   if(food.length <= 15){
+    spawnFood(); 
    }
    }
     for(int i = 0; i < cow.length; i++){
+      if(cow[i].active == true){
    cow[i].show();
    cow[i].move();
    cow[i].collide();
    creatures[i].eat(cow[i]);
+      }
     }
-    for(int i = 0; i < bush.length; i++){
-      bush[i].show();
-    }
+   
  
 }
   
   private void spawnCreatures() {
      for (int i = 0; i < creatures.length; i++) {
-    creatures[i] = new Creature((int)(Math.random()* 800),(int)(Math.random()* 800));
+    creatures[i] = new Creature((int)(Math.random()* 770),(int)(Math.random()* 770));
   }
   }
-   private void spawnBush() {
-     for (int i = 0; i < bush.length; i++) {
-    bush[i] = new Bush((int)(Math.random()* 800),(int)(Math.random()* 800));
-  }
-   }
   
   
-   private void spawnFood() {
+   public void spawnFood() {
      for (int i = 0; i < food.length; i++) {
-    food[i] = new Food((int)(Math.random()* 800),(int)(Math.random()* 800));
+    food[i] = new Food((int)(Math.random()* 770),(int)(Math.random()* 770));
   }
-  if(food.length <= 5){
-    spawnFood();
+  if(food.length <= 15){
+     spawnFood();
   }
   }
     private void spawnCow() {
      for (int i = 0; i < cow.length; i++) {
-    cow[i] = new Cow((int)(Math.random()* 800),(int)(Math.random()* 800));
+    cow[i] = new Cow((int)(Math.random()* 770),(int)(Math.random()* 770));
   }
   }
+  public void moreFood(){
+ for(int i = 0; i <food.length; i ++) {
+    food[i] = new Food((int)(Math.random()* 770),(int)(Math.random()* 770));
+   spawnFood();
+  }
+ }
